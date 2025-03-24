@@ -6,7 +6,7 @@ def dpda_accepts(dpda, cuvant):
     # citim fiecare simbol din cuvânt
     for simbol in cuvant:
         if not stack:
-            return False  # dacă stiva este goala cuvantul nu este acceptat
+            return False  # daca stiva este goala cuvantul nu este acceptat
         top_stack = stack.pop()  # scoatem simbolul de pe varful stivei
         # verificam daca exista o tranzitie pentru combinatia (current_state, symbol, top_stack)
         if (current_state, simbol, top_stack) in dpda['tranzitii']:
@@ -17,7 +17,7 @@ def dpda_accepts(dpda, cuvant):
             return False  # daca nu exista tranzitie cuvantul nu este acceptat
 
     # citim simboluri (tranziții fără citire de simboluri de intrare)
-    while (current_state, '', stack[-1] if stack else None) in dpda['tranzitii']:
+    while stack and (current_state, '', stack[-1]) in dpda['tranzitii']::
         top_stack = stack.pop()
         new_state, new_stack_symbols = dpda['tranzitii'][(current_state, '', top_stack)]
         current_state = new_state
